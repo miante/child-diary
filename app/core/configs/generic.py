@@ -12,5 +12,6 @@ class Secrets(BaseSettings):
 
 class Settings(BaseSettings):
     DEBUG: int = False
+    VERSION: str = '0.1.0'
 
     secrets: Secrets = Secrets()

@@ -1,4 +1,4 @@
-from app.core.configs.prod import ProductionConfiguration
+from app.core.configs.dev import DevelopmentConfiguration
 
 
-settings = ProductionConfiguration()
+settings = DevelopmentConfiguration()

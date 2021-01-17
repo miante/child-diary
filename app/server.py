@@ -1,24 +1,22 @@
 from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
 
-from app.core.configs import settings
+from app.api import routers
+from app.core import settings
 
-app = FastAPI()
+
+app = FastAPI(
+    debug=settings.DEBUG,
+    title='Child Growth Diary',
+    description='Child diary for tracking healthy lifestyle.',
+    version=settings.VERSION,
+)
+
+# Middlewares
 app.add_middleware(SessionMiddleware, secret_key=settings.secrets.SESSION_MIDDLEWARE_SECRET)
 
-
-# @app.route("/")
-# async def homepage(request: Request):
-#     user = request.session.get("user")
-#     if user:
-#         data = json.dumps(user)
-#         html = (
-#             f"<pre>{data}</pre>"
-#             '<a href="/logout">logout</a>'
-#         )
-#         return HTMLResponse(html)
-#     return HTMLResponse('<a href="/login">login</a>')
-
+# Routing
+app.include_router(routers.router)
 
 if __name__ == '__main__':
     import uvicorn

@@ -1,19 +1,17 @@
 import logging.config
 
-from .configs import settings
-
 
 LOGGING_CONFIG = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format': settings.LOG_FORMAT,
+            'format': '%(asctime)s [%(levelname)-6s]  %(message)s',
         },
     },
     'handlers': {
         'console': {
-            'level': logging.getLevelName(settings.LOG_LEVEL),
+            'level': 'INFO',
             'formatter': 'standard',
             'class': 'logging.StreamHandler',
             'stream': 'ext://sys.stdout',
@@ -22,7 +20,7 @@ LOGGING_CONFIG = {
     'loggers': {
         '': {
             'handlers': ['console'],
-            'level': logging.getLevelName(settings.LOG_LEVEL),
+            'level': 'INFO',
             'propagate': False,
         },
     }
