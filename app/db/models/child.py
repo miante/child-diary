@@ -9,7 +9,9 @@ class Child(engine.Model):
     Base child model within application for connecting it to other details
     """
 
-    id = sa.Column(sa.BigInteger, primary_key=True)
+    __tablename__ = 'child'
+
+    id = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
 
     full_name = sa.Column('full_name', sa.String(255))
     birth_date = sa.Column(sa.Date)

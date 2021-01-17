@@ -1,14 +1,14 @@
-from starlette.config import Config
 from authlib.integrations.starlette_client import OAuth
 
-config = Config("app/api/auth/.secrets")
+from app.core import settings
 
-oauth = OAuth(config)
+oauth = OAuth()
 oauth.register(
-    name="google",
+    "google",
+    client_id=settings.secrets.GOOGLE_CLIENT_ID,
+    client_secret=settings.secrets.GOOGLE_CLIENT_SECRET,
     server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
     client_kwargs={
         "scope": "openid email",
     }
 )
-google_oauth = oauth.google

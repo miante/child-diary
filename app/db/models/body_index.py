@@ -9,7 +9,9 @@ class BodyIndex(engine.Model):
     Model represents child body index of particular date
     """
 
-    id = sa.Column(sa.BigInteger, primary_key=True)
+    __tablename__ = 'body_index'
+
+    id = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
 
     height = sa.Column('height', sa.Float(precision=2))
     weight = sa.Column('weight', sa.Float(precision=2))

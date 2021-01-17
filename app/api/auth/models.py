@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
 
-class User(BaseModel):
+class Identity(BaseModel):
     email: str
-    full_name: str
-    is_active: bool = False

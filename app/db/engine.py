@@ -4,13 +4,19 @@ from sqlalchemy.orm import sessionmaker
 
 
 connection_url = 'sqlite:///:memory:'
-engine = sqlalchemy.create_engine(connection_url, echo=False)
+engine = sqlalchemy.create_engine(connection_url, echo=True)
 Model = declarative_base(engine)
 Session = sessionmaker(engine, autoflush=False)
 
 
-# TODO: Remove after going to local database storage
-# Create all tables stored in this metadata.
-# Conditional by default, will not attempt to recreate tables already
-# present in the target database.
-Model.metadata.create_all(engine)
+def get_session():
+    """
+    Creates a session holder and returns it. Will automatically close session
+    after returning execution to this generator
+    """
+
+    session = Session()
+    try:
+        yield session
+    finally:
+        session.close()
