@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-connection_url = 'sqlite:///:memory:'
+connection_url = 'postgresql://postgres:postgres@localhost/diary'
 engine = sqlalchemy.create_engine(connection_url, echo=True)
 Model = declarative_base(engine)
 Session = sessionmaker(engine, autoflush=False)
