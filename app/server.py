@@ -16,7 +16,8 @@ app = FastAPI(
 app.add_middleware(SessionMiddleware, secret_key=settings.secrets.SESSION_MIDDLEWARE_SECRET)
 
 # Routing
-app.include_router(routers.router)
+app.include_router(routers.router, prefix='/api')
+
 
 if __name__ == '__main__':
     import uvicorn
