@@ -67,7 +67,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: themainpartofme/child-growth-diary-api:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -84,12 +84,12 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Pulling docker image
-        run: docker pull themainpartofme/child-growth-diary-api:latest
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest
 
       - name: Removing all image
         run: |
-          docker stop themainpartofme/child-growth-diary-api:latest
-          docker rm themainpartofme/child-growth-diary-api:latest
+          docker stop ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest || true
+          docker rm ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest || true
 
       - name: Running docker as daemon
-        run: docker run -p 8000:8000 themainpartofme/child-growth-diary-api:latest
+        run: docker run -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest
