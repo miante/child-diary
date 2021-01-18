@@ -88,13 +88,14 @@ jobs:
 
       - name: Removing all image
         run: |
-          docker stop ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest || true
-          docker rm ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest || true
+          docker stop child-growth-diary-api || true
+          docker rm child-growth-diary-api || true
 
       - name: Running docker as daemon
         run: |
           docker run \
           -d \
+          --name child-growth-diary-api \
           -p 8000:8000 \
           -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
           -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
