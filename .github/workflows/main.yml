@@ -81,6 +81,8 @@ jobs:
     steps:
       - name: My test
         run: ls -la
+      - name: Checkout master
+        uses: actions/checkout@v2
 #       - name: Deploy to Digital Ocean droplet via SSH action
 #         uses: appleboy/ssh-action@v0.1.4
 #         with:
