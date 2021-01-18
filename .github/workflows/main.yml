@@ -51,5 +51,6 @@ jobs:
 
       - name: Installing new dependencies
         run: |
+          ls -la
           source venv/bin/activate
           pip install -U -r requirements.txt
