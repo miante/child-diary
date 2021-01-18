@@ -15,10 +15,10 @@ class Settings(BaseSettings):
     VERSION: str = '0.1.0'
 
     # Postgres Database connection configuration
-    POSTGRES_HOST: AnyUrl
-    POSTGRES_PORT: int
-    POSTGRES_USERNAME: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DATABASE: str
+    POSTGRES_HOST: AnyUrl = Field(env='POSTGRES_HOST')
+    POSTGRES_PORT: int = Field(env='POSTGRES_PORT')
+    POSTGRES_USERNAME: str = Field(env='POSTGRES_USERNAME')
+    POSTGRES_PASSWORD: str = Field(env='POSTGRES_PASSWORD')
+    POSTGRES_DATABASE: str = Field(env='POSTGRES_DATABASE')
 
     secrets: Secrets = Secrets()
