@@ -94,7 +94,7 @@ jobs:
       - name: Running docker as daemon
         run: |
           docker run \
-          -d
+          -d \
           -p 8000:8000 \
           -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
           -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
