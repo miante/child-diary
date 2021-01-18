@@ -67,7 +67,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: child-growth-diary/api:latest
+          tags: child-growth-diary-api:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -92,4 +92,4 @@ jobs:
           docker rm my-mysql-container
 
       - name: Running docker as daemon
-        run: docker run -p 8000:8000 child-growth-diary/api:latest
+        run: docker run -p 8000:8000 child-growth-diary-api:latest
