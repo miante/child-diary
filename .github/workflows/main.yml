@@ -55,6 +55,9 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v2
+      
+      - name: Build container image1
+        run: ls -la && ls -la ..
 
       - name: Build container image
         run: docker build -t child-diary:$(echo $GITHUB_SHA | head -c7) .
