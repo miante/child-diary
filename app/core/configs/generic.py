@@ -1,4 +1,4 @@
-from pydantic import BaseSettings, Field, AnyUrl
+from pydantic import BaseSettings, Field
 
 
 class Secrets(BaseSettings):
@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     VERSION: str = '0.1.0'
 
     # Postgres Database connection configuration
-    POSTGRES_HOST: AnyUrl = Field(env='POSTGRES_HOST')
+    POSTGRES_HOST: str = Field(env='POSTGRES_HOST')
     POSTGRES_PORT: int = Field(env='POSTGRES_PORT')
     POSTGRES_USERNAME: str = Field(env='POSTGRES_USERNAME')
     POSTGRES_PASSWORD: str = Field(env='POSTGRES_PASSWORD')
