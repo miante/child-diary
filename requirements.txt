@@ -1,9 +1,12 @@
 Authlib==0.15.3
+itsdangerous
 fastapi==0.63.0
+httpx
 psycopg2-binary==2.8.6
 pydantic==1.7.3
 SQLAlchemy==1.3.22
 
-# ASGI servers
+# ASGI servers dependencies
 gunicorn
 uvicorn
+uvloop

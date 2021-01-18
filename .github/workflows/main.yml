@@ -53,3 +53,7 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -U -r requirements.txt
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          SESSION_MIDDLEWARE_SECRET: ${{ secrets.SESSION_MIDDLEWARE_SECRET }}
