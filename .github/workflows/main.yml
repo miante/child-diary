@@ -51,7 +51,8 @@ jobs:
 
       - name: Installing new dependencies
         run: |
-          source venv/bin/activate
+          ls -la
+          source ../venv/bin/activate
           pip install -U -r requirements.txt
         env:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
