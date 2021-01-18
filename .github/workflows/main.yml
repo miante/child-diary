@@ -81,15 +81,15 @@ jobs:
     steps:
 
       - name: Log in to Dockerhub
-        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -P ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Pulling docker image
-        run: docker pull child-growth-diary/api:latest
+        run: docker pull themainpartofme/child-growth-diary-api:latest
 
       - name: Removing all image
         run: |
-          docker stop my-mysql-container
-          docker rm my-mysql-container
+          docker stop themainpartofme/child-growth-diary-api:latest
+          docker rm themainpartofme/child-growth-diary-api:latest
 
       - name: Running docker as daemon
         run: docker run -p 8000:8000 themainpartofme/child-growth-diary-api:latest
