@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter
+from pydantic.main import BaseModel
 
 from app.core import settings
 
@@ -7,10 +7,14 @@ from app.core import settings
 router = APIRouter()
 
 
-@router.get('/')
+class IndexResponse(BaseModel):
+    version: str
+
+
+@router.get('/', response_model=IndexResponse)
 def index():
     """
-    Returns the status, version of API
+    Returns the version of current API
     """
 
-    return JSONResponse({'version': settings.VERSION})
+    return IndexResponse(version=settings.VERSION)

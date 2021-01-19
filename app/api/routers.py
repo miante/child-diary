@@ -5,5 +5,6 @@ from .v1.index.views import router as v1_index_router
 
 
 router = APIRouter()
-router.include_router(auth_router)
-router.include_router(v1_index_router)
+
+router.include_router(auth_router, tags=['auth'])
+router.include_router(v1_index_router, tags=['index'])
