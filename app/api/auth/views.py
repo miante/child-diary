@@ -4,13 +4,27 @@ from starlette.requests import Request
 from starlette.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuthError
 
-from app.api.auth.models import Identity
+from app.api.auth.models import AuthorizedUser
 from app.api.auth.oauth import oauth
+from app.api.auth.shortcuts import login_required
 from app.db.engine import Session, get_session
 from app.db.models import User
 
 
 router = APIRouter()
+
+
+@router.get(
+    "/me",
+    dependencies=[Depends(login_required)],
+    response_model=AuthorizedUser,
+)
+async def get_user(request: Request):
+    """
+    Returns information of current user
+    """
+
+    return request.state.user
 
 
 @router.get("/login")
@@ -20,13 +34,14 @@ async def login(request: Request):
     """
 
     redirect_uri = request.url_for("google_oauth_login")
+
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 
 @router.get("/logout")
 async def logout(request: Request):
     """
-    Removes user from session for further use
+    Removes user from a session for further use
     """
 
     request.session.pop("user", None)
@@ -34,7 +49,7 @@ async def logout(request: Request):
     return RedirectResponse(url="/")
 
 
-@router.get("/oauth/google")
+@router.get("/oauth/google", include_in_schema=False)
 async def google_oauth_login(
     request: Request,
     session: Session = Depends(get_session),
@@ -57,6 +72,6 @@ async def google_oauth_login(
         session.add(db_user)
         session.commit()
 
-    request.session["user"] = Identity(**db_user.__dict__).dict()
+    request.session["user"] = AuthorizedUser(**db_user.__dict__).dict()
 
     return RedirectResponse(url="/")
