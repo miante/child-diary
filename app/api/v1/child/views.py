@@ -35,12 +35,12 @@ def get_user_children(
 @router.post(
     '/child/create',
     dependencies=[Depends(is_authenticated)],
+    status_code=status.HTTP_201_CREATED,
 )
 def create_user_child(
     child: ChildInput,
     request: Request,
     session: Session = Depends(get_session),
-    status_code=status.HTTP_201_CREATED,
 ):
     """
     Create a child for the user in session
