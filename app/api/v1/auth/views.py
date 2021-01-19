@@ -1,12 +1,10 @@
-from fastapi import APIRouter, HTTPException, Depends
-from starlette import status
+from fastapi import APIRouter, Depends
 from starlette.requests import Request
-from starlette.responses import RedirectResponse
+from starlette.responses import RedirectResponse, HTMLResponse
 from authlib.integrations.starlette_client import OAuthError
 
 from app.api.auth.oauth import oauth
 from app.api.auth.identity import AuthenticatedUser
-from app.core import logger
 from app.db.engine import Session, get_session
 from app.db.models import User as User
 
@@ -48,8 +46,7 @@ async def google_oauth_login(
     try:
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
-        logger.error(f"Got unexpected OAuth error: {error}")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+        return HTMLResponse(f'<p>{error.error}</p>')
 
     data = await oauth.google.parse_id_token(request, token)
     email = data['email']
