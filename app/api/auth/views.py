@@ -7,6 +7,7 @@ from authlib.integrations.starlette_client import OAuthError
 from app.api.auth.models import AuthorizedUser
 from app.api.auth.oauth import oauth
 from app.api.auth.shortcuts import login_required
+from app.core import logger
 from app.db.engine import Session, get_session
 from app.db.models import User
 
@@ -60,7 +61,8 @@ async def google_oauth_login(
 
     try:
         token = await oauth.google.authorize_access_token(request)
-    except OAuthError:
+    except OAuthError as error:
+        logger.error(f"Got unexpected OAuth error: {error}")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
     data = await oauth.google.parse_id_token(request, token)

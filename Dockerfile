@@ -14,4 +14,4 @@ COPY ./app/ ${APP_DIR}/app
 # Finish image setup.
 WORKDIR ${APP_DIR}
 
-CMD ["gunicorn", "app.server:app", "--bind=0.0.0.0:8000", "-k uvicorn.workers.UvicornH11Worker", "--workers=5"]
+CMD ["gunicorn", "app.server:app", "--access-logfile -", "--error-logfile -", "--bind=0.0.0.0:8000", "-k uvicorn.workers.UvicornH11Worker", "--workers=5"]
