@@ -20,7 +20,6 @@ app = FastAPI(
 # Middlewares
 app.add_middleware(AuthenticationMiddleware, backend=SessionAuthBackend())
 app.add_middleware(SessionMiddleware, secret_key=settings.secrets.SESSION_MIDDLEWARE_SECRET)
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=['childdiary.info', '*.childdiary.info', '127.0.0.1'])
 
 # Routing
 app.include_router(routers.router, prefix='/api')
