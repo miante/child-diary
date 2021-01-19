@@ -95,6 +95,7 @@ jobs:
         run: |
           docker run \
           -d \
+          --log-driver syslog \
           --name child-growth-diary-api \
           -p 8000:8000 \
           -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
@@ -106,6 +107,10 @@ jobs:
           -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
           -e POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }} \
           ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest
+
+      - name: Running docker as daemon
+        run: |
+          docker run -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/child-growth-diary-api:latest
 
       - name: Prun unused docker images
         run: docker system prune -f -a

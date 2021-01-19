@@ -21,16 +21,10 @@ def configure_logging():
                 'class': 'logging.StreamHandler',
                 'stream': 'ext://sys.stdout',
             },
-            'file': {
-                'class': 'logging.FileHandler',
-                'filename': '../child-diary.log',
-                'mode': 'a',
-                'formatter': 'standard',
-            },
         },
         'loggers': {
             '': {
-                'handlers': ['console', 'file'],
+                'handlers': ['console'],
                 'level': 'INFO',
                 'propagate': False,
             },
