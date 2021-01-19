@@ -73,6 +73,7 @@ async def google_oauth_login(
         db_user = User(email=email)
         session.add(db_user)
         session.commit()
+        session.refresh(db_user)
 
     request.session["user"] = AuthorizedUser(**db_user.__dict__).dict()
 

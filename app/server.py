@@ -3,7 +3,9 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from app.api import routers
 from app.core import settings
+from app.core.log import configure_logging
 
+configure_logging()
 
 app = FastAPI(
     debug=settings.DEBUG,
