@@ -8,6 +8,7 @@ oauth.register(
     client_id=settings.secrets.GOOGLE_CLIENT_ID,
     client_secret=settings.secrets.GOOGLE_CLIENT_SECRET,
     server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
+    authorize_params={'access_type': 'offline'},
     client_kwargs={
         "scope": "openid email",
     }
