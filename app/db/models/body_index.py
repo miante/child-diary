@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from sqlalchemy import BigInteger
+from sqlalchemy.orm import relationship
 
 from app.db import engine
 
@@ -13,9 +13,12 @@ class BodyIndex(engine.Model):
 
     id = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
 
-    height = sa.Column('height', sa.Float(precision=2))
-    weight = sa.Column('weight', sa.Float(precision=2))
+    height = sa.Column('height', sa.Float(precision=2), nullable=False)
+    weight = sa.Column('weight', sa.Float(precision=2), nullable=False)
     timestamp = sa.Column(sa.Date, server_default=sa.func.now())
 
     # Foreign Keys
-    child = sa.Column(BigInteger, sa.ForeignKey('child.id'))
+    child_id = sa.Column(sa.BigInteger, sa.ForeignKey('child.id'), nullable=False)
+
+    # Relationships
+    child = relationship('Child', back_populates="body_indexes")

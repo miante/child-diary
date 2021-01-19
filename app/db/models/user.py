@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy.orm import relationship
 
 from app.db import engine
 
@@ -12,8 +13,14 @@ class User(engine.Model):
 
     id = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
 
-    full_name = sa.Column('full_name', sa.String(255))
-    email = sa.Column('email', sa.String(255))
+    email = sa.Column('email', sa.String(255), nullable=False)
 
     updated = sa.Column(sa.Date, onupdate=sa.func.now())
     created = sa.Column(sa.Date, server_default=sa.func.now())
+
+    # Relationships
+    children = relationship(
+        'Child',
+        cascade="all, delete-orphan",
+        back_populates="user",
+    )

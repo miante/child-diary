@@ -1,16 +1,11 @@
 from fastapi import Request, HTTPException
-from pydantic import ValidationError
 from starlette import status
 
-from app.api.auth.models import AuthorizedUser
 
-
-def login_required(request: Request):
+def is_authenticated(request: Request):
     """
-    Verifies that user passes hjs authentication and is verified
+    Raises an exemption if user is not authenticated
     """
 
-    try:
-        request.state.user = AuthorizedUser(**request.session.get('user'))
-    except (TypeError, ValidationError):
+    if not request.user.is_authenticated:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)

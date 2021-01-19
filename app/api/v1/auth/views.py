@@ -4,28 +4,14 @@ from starlette.requests import Request
 from starlette.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuthError
 
-from app.api.auth.models import AuthorizedUser
 from app.api.auth.oauth import oauth
-from app.api.auth.shortcuts import login_required
+from app.api.auth.identity import AuthenticatedUser
 from app.core import logger
 from app.db.engine import Session, get_session
-from app.db.models import User
+from app.db.models import User as User
 
 
 router = APIRouter()
-
-
-@router.get(
-    "/me",
-    dependencies=[Depends(login_required)],
-    response_model=AuthorizedUser,
-)
-async def get_user(request: Request):
-    """
-    Returns information of current user
-    """
-
-    return request.state.user
 
 
 @router.get("/login")
@@ -75,6 +61,6 @@ async def google_oauth_login(
         session.commit()
         session.refresh(db_user)
 
-    request.session["user"] = AuthorizedUser(**db_user.__dict__).dict()
+    request.session["user"] = AuthenticatedUser(**db_user.__dict__).dict()
 
     return RedirectResponse(url="/")

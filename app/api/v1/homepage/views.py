@@ -11,8 +11,8 @@ class IndexResponse(BaseModel):
     version: str
 
 
-@router.get('/', response_model=IndexResponse)
-def index():
+@router.get('/', summary="Homepage", response_model=IndexResponse)
+def homepage():
     """
     Returns the version of current API
     """
